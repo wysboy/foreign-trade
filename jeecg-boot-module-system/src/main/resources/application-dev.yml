@@ -2,8 +2,8 @@ server:
   port: 8888
   tomcat:
     max-swallow-size: -1
-  servlet:
-    context-path: /jeecg-boot
+#  servlet:
+#    context-path: /jeecg-boot
   compression:
     enabled: true
     min-response-size: 1024
