@@ -94,6 +94,7 @@ public class EnterpriseAuthInfoServiceImpl extends ServiceImpl<EnterpriseAuthInf
         }
 
         EnterpriseAuthInfo enterpriseAuthInfo = new EnterpriseAuthInfo();
+        enterpriseAuthInfo.setId(model.getId());
         enterpriseAuthInfo.setAuthCode(model.getAuthCode());
         enterpriseAuthInfo.setAuthName(model.getAuthName());
         enterpriseAuthInfo.setUpdateBy(loginUser.getUsername());

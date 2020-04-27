@@ -94,6 +94,7 @@ public class EnterpriseBindInfoServiceImpl extends ServiceImpl<EnterpriseBindInf
         }
 
         EnterpriseBindInfo enterpriseBindInfo = new EnterpriseBindInfo();
+        enterpriseBindInfo.setId(model.getId());
         enterpriseBindInfo.setBindType(model.getBindType());
         enterpriseBindInfo.setBindValue(model.getBindValue());
         enterpriseBindInfo.setUpdateBy(loginUser.getUsername());
