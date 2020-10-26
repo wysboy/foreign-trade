@@ -2,4 +2,50 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.jeecg.modules.business.admin.enterprise.mapper.EnterpriseMapper">
 
+    <select id="getEnterpriseList"
+            resultType="org.jeecg.modules.business.admin.enterprise.vo.EnterpriseVO">
+
+        SELECT
+        CONCAT_WS('/',(
+        SELECT name FROM sys_region r WHERE r.id  = t.province
+
+        ),(
+        SELECT name FROM sys_region r WHERE r.id  = t.city
+
+        ),(
+        SELECT name FROM sys_region r WHERE r.id  = t.area
+
+        ),t.address) as detailedAddress
+        , t.*
+        FROM enterprise t
+        <where>
+            <if test="model.enterpriseName != null and model.enterpriseName != ''">and t.enterprise_name like
+                concat('%',
+                #{model.enterpriseName} , '%')
+            </if>
+            <if test="model.enterpriseStatus != null and model.enterpriseStatus != ''"> and t.enterprise_status = #{model.enterpriseStatus} </if>
+        </where>
+        order by t.create_time desc
+    </select>
+
+    <select id="getByEnterpriseId"
+            resultType="org.jeecg.modules.business.admin.enterprise.vo.EnterpriseVO">
+
+        SELECT
+        CONCAT_WS('/',(
+        SELECT name FROM sys_region r WHERE r.id  = t.province
+
+        ),(
+        SELECT name FROM sys_region r WHERE r.id  = t.city
+
+        ),(
+        SELECT name FROM sys_region r WHERE r.id  = t.area
+
+        ),t.address) as detailedAddress
+        , t.*
+        FROM enterprise t
+        where t.id = #{id}
+
+    </select>
+
 </mapper>

@@ -1,9 +1,5 @@
-package org.jeecg.modules.business.admin.enterprise.VO;
+package org.jeecg.modules.business.admin.enterprise.vo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.jeecgframework.poi.excel.annotation.Excel;

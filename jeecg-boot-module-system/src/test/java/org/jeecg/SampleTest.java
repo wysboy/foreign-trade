@@ -4,11 +4,13 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.jeecg.common.util.RedisUtil;
 import org.jeecg.modules.demo.mock.MockController;
 import org.jeecg.modules.demo.test.entity.JeecgDemo;
 import org.jeecg.modules.demo.test.mapper.JeecgDemoMapper;
 import org.jeecg.modules.demo.test.service.IJeecgDemoService;
 import org.jeecg.modules.system.service.ISysDataLogService;
+import org.jeecg.modules.system.vo.SysRegionVO;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,6 +29,8 @@ public class SampleTest {
 	private ISysDataLogService sysDataLogService;
 	@Resource
 	private MockController mock;
+	@Resource
+	private RedisUtil redisUtil;
 
 	@Test
 	public void testSelect() {
@@ -63,5 +67,11 @@ public class SampleTest {
 		String dataContent = mock.sysDataLogJson();
 		sysDataLogService.addDataLog(tableName, dataId, dataContent);
 	}
-	//author:lvdandan-----date：20190315---for:添加数据日志测试----
+
+	@Test
+	public void testRedis() {
+		List<SysRegionVO>  r = (List<SysRegionVO>) redisUtil.get("sysRegion");
+		System.out.println(r);
+	}
+
 }

@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.system.vo.LoginUser;
-import org.jeecg.modules.business.admin.enterprise.VO.EnterpriseBindInfoVO;
+import org.jeecg.modules.business.admin.enterprise.vo.EnterpriseBindInfoVO;
 import org.jeecg.modules.business.admin.enterprise.entity.Enterprise;
 import org.jeecg.modules.business.admin.enterprise.entity.EnterpriseBindInfo;
 import org.jeecg.modules.business.admin.enterprise.mapper.EnterpriseBindInfoMapper;
@@ -16,6 +16,7 @@ import org.jeecg.modules.business.admin.enterprise.service.IEnterpriseBindInfoSe
 import org.jeecg.modules.business.admin.enterprise.service.IEnterpriseService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -31,6 +32,7 @@ import java.util.Date;
 public class EnterpriseBindInfoServiceImpl extends ServiceImpl<EnterpriseBindInfoMapper, EnterpriseBindInfo> implements IEnterpriseBindInfoService {
 
     @Autowired
+    @Lazy
     private IEnterpriseService enterpriseService;
 
 

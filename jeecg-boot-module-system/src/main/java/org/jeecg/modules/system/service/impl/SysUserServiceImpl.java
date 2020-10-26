@@ -381,4 +381,28 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 		return line != 0;
 	}
 
+    @Override
+    public Result createUserLogin(String enterpriseId, String loginName, String loginPassword, String username) {
+		String salt = oConvertUtils.randomGen(8); //密码盐
+		String passwordEncode = PasswordUtil.encrypt(loginName, loginPassword, salt); //加密后的密码
+
+		//2.写入系统用户信息
+		SysUser sysUser = new SysUser();
+		sysUser.setUsername(loginName);
+		sysUser.setRealname(username);
+		sysUser.setPassword(passwordEncode);
+		sysUser.setSalt(salt);
+		sysUser.setStatus(1);
+		sysUser.setDelFlag("0");
+		sysUser.setEnterpriseId(enterpriseId);
+		this.save(sysUser);
+		if (sysUserRoleMapper.insert(new SysUserRole(sysUser.getId(), "")) <= 0)
+			throw new RuntimeException("新增系统role失败.");
+
+		if (sysUserDepartMapper.insert(new SysUserDepart(sysUser.getId(), "")) <= 0)
+			throw new RuntimeException("新增系统departid失败.");
+
+		return Result.ok();
+    }
+
 }

@@ -1,12 +1,7 @@
-package org.jeecg.modules.business.admin.enterprise.VO;
+package org.jeecg.modules.business.admin.enterprise.vo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.jeecgframework.poi.excel.annotation.Excel;
-import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * 企业认证信息

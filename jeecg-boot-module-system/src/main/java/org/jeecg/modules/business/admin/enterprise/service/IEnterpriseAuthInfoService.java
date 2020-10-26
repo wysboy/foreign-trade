@@ -1,7 +1,7 @@
 package org.jeecg.modules.business.admin.enterprise.service;
 
 import org.jeecg.common.api.vo.Result;
-import org.jeecg.modules.business.admin.enterprise.VO.EnterpriseAuthInfoVO;
+import org.jeecg.modules.business.admin.enterprise.vo.EnterpriseAuthInfoVO;
 import org.jeecg.modules.business.admin.enterprise.entity.EnterpriseAuthInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.jeecg.modules.business.admin.enterprise.model.AddEnterpriseAuthInfoModel;

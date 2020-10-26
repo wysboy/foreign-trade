@@ -170,4 +170,10 @@ public class SysUser implements Serializable {
     @Excel(name="负责部门",width = 15,dictTable ="sys_depart",dicText = "depart_name",dicCode = "id")
     @Dict(dictTable ="sys_depart",dicText = "depart_name",dicCode = "id")
     private String departIds;
+
+    /**
+     * 企业id
+     */
+    private String enterpriseId;
+
 }

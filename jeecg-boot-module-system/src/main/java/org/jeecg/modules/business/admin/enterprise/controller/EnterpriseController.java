@@ -3,9 +3,13 @@ package org.jeecg.modules.business.admin.enterprise.controller;
 import java.util.Arrays;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.system.query.QueryGenerator;
 import org.jeecg.common.aspect.annotation.AutoLog;
+import org.jeecg.modules.business.admin.enterprise.model.QueryEnterpriseModel;
+import org.jeecg.modules.business.admin.enterprise.vo.EnterpriseVO;
+import org.jeecg.modules.business.admin.enterprise.vo.PageBean;
 import org.jeecg.modules.business.admin.enterprise.entity.Enterprise;
 import org.jeecg.modules.business.admin.enterprise.model.AddEnterpriseModel;
 import org.jeecg.modules.business.admin.enterprise.model.UpdateEnterpriseModel;
@@ -16,6 +20,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.jeecg.common.system.base.controller.JeecgController;
 
+import org.jeecg.modules.business.emums.EnterpriseStatus;
+import org.jeecg.modules.system.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
@@ -38,7 +44,6 @@ public class EnterpriseController extends JeecgController<Enterprise, IEnterpris
     /**
      * 分页列表查询
      *
-     * @param enterprise
      * @param pageNo
      * @param pageSize
      * @param req
@@ -47,14 +52,27 @@ public class EnterpriseController extends JeecgController<Enterprise, IEnterpris
     @AutoLog(value = "企业表-分页列表查询")
     @ApiOperation(value = "企业表-分页列表查询", notes = "企业表-分页列表查询")
     @GetMapping(value = "/list")
-    public Result<?> queryPageList(Enterprise enterprise,
-                                   @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
-                                   @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
-                                   HttpServletRequest req) {
-        QueryWrapper<Enterprise> queryWrapper = QueryGenerator.initQueryWrapper(enterprise, req.getParameterMap());
-        Page<Enterprise> page = new Page<Enterprise>(pageNo, pageSize);
-        IPage<Enterprise> pageList = enterpriseService.page(page, queryWrapper);
-        return Result.ok(pageList);
+    public Result<PageBean<EnterpriseVO>> queryPageList(QueryEnterpriseModel model,
+                                                        @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
+                                                        @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
+                                                        HttpServletRequest req) {
+
+        IPage<EnterpriseVO> pageList = enterpriseService.getEnterpriseList(pageNo,pageSize,model);
+
+        //返回的分页信息
+        PageBean<EnterpriseVO> pageBean = new PageBean<>();
+        pageBean.setData(pageList.getRecords());
+        pageBean.setPageNo(pageNo);
+        pageBean.setPageSize(pageSize);
+        pageBean.setTotalCount(pageList.getTotal());
+        pageBean.setTotalPage(pageList.getPages());
+
+        //返回结果
+        Result<PageBean<EnterpriseVO>> result = new Result<>();
+        result.setResult(pageBean);
+        result.setSuccess(true);
+
+        return result;
     }
 
     /**
@@ -82,6 +100,20 @@ public class EnterpriseController extends JeecgController<Enterprise, IEnterpris
     public Result<?> edit(@RequestBody UpdateEnterpriseModel model) {
         return enterpriseService.updateEnterprise(model);
     }
+
+    /**
+     * 企业审核
+     *
+     * @param id
+     * @return
+     */
+    @AutoLog(value = "企业审核")
+    @ApiOperation(value = "企业审核", notes = "企业审核")
+    @GetMapping(value = "/auditEnterprise/{id}")
+    public Result<?> auditEnterprise(@PathVariable("id") String id) {
+        return enterpriseService.auditEnterprise(id);
+    }
+
 
     /**
      * 通过id删除
@@ -121,8 +153,7 @@ public class EnterpriseController extends JeecgController<Enterprise, IEnterpris
     @ApiOperation(value = "企业表-通过id查询", notes = "企业表-通过id查询")
     @GetMapping(value = "/queryById")
     public Result<?> queryById(@RequestParam(name = "id", required = true) String id) {
-        Enterprise enterprise = enterpriseService.getById(id);
-        return Result.ok(enterprise);
+        return enterpriseService.getByEnterpriseId(id);
     }
 
 

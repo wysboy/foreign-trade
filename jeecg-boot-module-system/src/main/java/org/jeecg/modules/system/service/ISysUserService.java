@@ -214,4 +214,6 @@ public interface ISysUserService extends IService<SysUser> {
 	 */
 	boolean removeLogicDeleted(List<String> userIds);
 
+	Result createUserLogin(String id, String bindValue, String loginPassword, String enterpriseName);
+
 }

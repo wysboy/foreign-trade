@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.system.vo.LoginUser;
-import org.jeecg.modules.business.admin.enterprise.VO.EnterpriseAuthInfoVO;
+import org.jeecg.modules.business.admin.enterprise.vo.EnterpriseAuthInfoVO;
 import org.jeecg.modules.business.admin.enterprise.entity.Enterprise;
 import org.jeecg.modules.business.admin.enterprise.entity.EnterpriseAuthInfo;
 import org.jeecg.modules.business.admin.enterprise.mapper.EnterpriseAuthInfoMapper;

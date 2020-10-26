@@ -51,7 +51,7 @@ public class LoginController {
 	@Autowired
     private ISysDepartService sysDepartService;
 	
-	private static final String BASE_CHECK_CODES = "qwertyuiplkjhgfdsazxcvbnmQWERTYUPLKJHGFDSAZXCVBNM1234567890";
+	public static final String BASE_CHECK_CODES = "qwertyuiplkjhgfdsazxcvbnmQWERTYUPLKJHGFDSAZXCVBNM1234567890";
 
 	@ApiOperation("登录接口")
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
